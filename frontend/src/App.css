@@ -1,0 +1,351 @@
+/* App.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #333;
+}
+
+.App {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.App h1 {
+  text-align: center;
+  color: white;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* File Upload Styles */
+.file-upload-container {
+  margin-bottom: 2rem;
+}
+
+.file-upload-area {
+  border: 3px dashed #ccc;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  background: white;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.file-upload-area:hover,
+.file-upload-area.drag-active {
+  border-color: #667eea;
+  background: #f8f9ff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.file-upload-label {
+  cursor: pointer;
+  display: block;
+}
+
+.upload-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.upload-text p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.upload-text strong {
+  color: #667eea;
+}
+
+/* Job Input Styles */
+.job-input-container {
+  margin-bottom: 2rem;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.job-input-label {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.job-input-textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: vertical;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.job-input-textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.char-count {
+  text-align: right;
+  margin-top: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Button Styles */
+button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+  margin: 2rem auto;
+  min-width: 200px;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Results Styles */
+.results-container {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-top: 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.results-header h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+/* Match Score Circle */
+.match-score-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.match-circle {
+  width: 160px;
+  height: 160px;
+  border: 8px solid;
+  border-radius: 50%;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.match-percentage {
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.match-label {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  opacity: 0.8;
+}
+
+/* Summary Section */
+.summary-section,
+.ai-analysis-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f8f9ff;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.summary-section h3,
+.ai-analysis-section h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.summary-text,
+.ai-analysis-text {
+  line-height: 1.6;
+  color: #555;
+}
+
+.ai-analysis-text p {
+  margin-bottom: 0.5rem;
+}
+
+/* Results Grid */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.result-card {
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid;
+}
+
+.result-card h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.result-card ul {
+  list-style: none;
+}
+
+.result-card li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.result-card li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+/* Different card types */
+.strengths {
+  background: #f0f9f0;
+  border-left-color: #4CAF50;
+}
+
+.strengths li::before {
+  color: #4CAF50;
+}
+
+.missing-skills {
+  background: #fff5f5;
+  border-left-color: #F44336;
+}
+
+.missing-skills li::before {
+  color: #F44336;
+}
+
+.improvements {
+  background: #f0f8ff;
+  border-left-color: #2196F3;
+}
+
+.improvements li::before {
+  color: #2196F3;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-secondary {
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+}
+
+.btn-secondary:hover {
+  background: #667eea;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .App {
+    padding: 1rem;
+  }
+  
+  .App h1 {
+    font-size: 2rem;
+  }
+  
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .match-circle {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .match-percentage {
+    font-size: 2rem;
+  }
+}
