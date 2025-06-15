@@ -10,6 +10,8 @@ function App() {
   const [analysis, setAnalysis] = useState(null)
   const [loading, setLoading] = useState(false)
 
+  const API_URL = 'https://resume-consultant-backend.onrender.com'
+
   const handleAnalyze = async () => {
     console.log('Analyze button clicked!')
     if (!file || !jobDescription) {
@@ -23,7 +25,7 @@ function App() {
     formData.append('jd', jobDescription)
 
     try {
-      const response = await fetch('http://localhost:8000/match_resume', {
+      const response = await fetch(`${API_URL}/match_resume`, {
         method: 'POST',
         body: formData
       })
