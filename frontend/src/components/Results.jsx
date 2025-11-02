@@ -16,19 +16,25 @@ const Results = ({ analysis }) => {
   return (
     <div className="results-container">
       <div className="results-header">
-        <h2>📊 Analysis Results</h2>
+        <h2>Analysis Results</h2>
       </div>
 
       {/* Match Score Circle */}
       <div className="match-score-section">
-        <div 
+        <div
           className="match-circle"
           style={{ borderColor: getMatchColor(analysis.matchPercentage || 60) }}
         >
-          <div className="match-percentage">
+          <div
+            className="match-percentage"
+            style={{ color: getMatchColor(analysis.matchPercentage || 60) }}
+          >
             {analysis.matchPercentage || 60}%
           </div>
-          <div className="match-label">
+          <div
+            className="match-label"
+            style={{ color: getMatchColor(analysis.matchPercentage || 60) }}
+          >
             {getMatchLabel(analysis.matchPercentage || 60)}
           </div>
         </div>
@@ -37,7 +43,7 @@ const Results = ({ analysis }) => {
       {/* Summary */}
       {analysis.summary && (
         <div className="summary-section">
-          <h3>📝 Summary</h3>
+          <h3>Summary</h3>
           <p className="summary-text">{analysis.summary}</p>
         </div>
       )}
@@ -45,7 +51,7 @@ const Results = ({ analysis }) => {
       {/* AI Analysis - if it's the full text response */}
       {analysis.aiAnalysis && (
         <div className="ai-analysis-section">
-          <h3>🤖 AI Analysis</h3>
+          <h3>AI Analysis</h3>
           <div className="ai-analysis-text">
             {analysis.aiAnalysis.split('\n').map((line, index) => (
               <p key={index}>{line}</p>
@@ -59,7 +65,7 @@ const Results = ({ analysis }) => {
         {/* Strengths */}
         {analysis.strengths && analysis.strengths.length > 0 && (
           <div className="result-card strengths">
-            <h3>✅ Your Strengths</h3>
+            <h3>Your Strengths</h3>
             <ul>
               {analysis.strengths.map((strength, index) => (
                 <li key={index}>{strength}</li>
@@ -71,7 +77,7 @@ const Results = ({ analysis }) => {
         {/* Missing Skills */}
         {analysis.missingSkills && analysis.missingSkills.length > 0 && (
           <div className="result-card missing-skills">
-            <h3>🎯 Missing Skills</h3>
+            <h3>Missing Skills</h3>
             <ul>
               {analysis.missingSkills.map((skill, index) => (
                 <li key={index}>{skill}</li>
@@ -83,7 +89,7 @@ const Results = ({ analysis }) => {
         {/* Improvements */}
         {analysis.improvements && analysis.improvements.length > 0 && (
           <div className="result-card improvements">
-            <h3>💡 Improvements</h3>
+            <h3>Recommended Improvements</h3>
             <ul>
               {analysis.improvements.map((improvement, index) => (
                 <li key={index}>{improvement}</li>
@@ -96,10 +102,10 @@ const Results = ({ analysis }) => {
       {/* Action Buttons */}
       <div className="action-buttons">
         <button className="btn-secondary" onClick={() => window.print()}>
-          📄 Print Report
+          Print Report
         </button>
         <button className="btn-primary" onClick={() => window.location.reload()}>
-          🔄 Analyze Another Resume
+          Analyze Another Resume
         </button>
       </div>
     </div>

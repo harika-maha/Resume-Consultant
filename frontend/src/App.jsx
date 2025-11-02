@@ -10,7 +10,7 @@ function App() {
   const [analysis, setAnalysis] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  const API_URL = 'https://resume-consultant-backend.onrender.com'
+  const API_URL = import.meta.env.VITE_API_URL
 
   const handleAnalyze = async () => {
     console.log('Analyze button clicked!')
@@ -46,10 +46,13 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Resume Consultant</h1>
+      <div className="header-section">
+        <h1>Resume Consultant</h1>
+        <p className="subtitle">AI-powered resume analysis and job matching</p>
+      </div>
       <FileUpload onFileSelect={setFile} />
       <JobInput value={jobDescription} onChange={setJobDescription} />
-      <button onClick={handleAnalyze} disabled={loading}>
+      <button onClick={handleAnalyze} disabled={loading || !file || !jobDescription}>
         {loading ? 'Analyzing...' : 'Analyze Resume'}
       </button>
       {analysis && <Results analysis={analysis} />}
