@@ -9,6 +9,7 @@ function App() {
   const [jobDescription, setJobDescription] = useState('')
   const [analysis, setAnalysis] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   const API_URL = import.meta.env.VITE_API_URL
 
@@ -20,6 +21,8 @@ function App() {
     }
     
     setLoading(true)
+    setError(null)
+    setAnalysis(null)
     const formData = new FormData()
     formData.append('resume', file)
     formData.append('jd', jobDescription)
@@ -32,9 +35,14 @@ function App() {
       console.log('Response status:', response.status)
       const result = await response.json()
       console.log('API result:', result)
-      setAnalysis(result.analysis)
+      if (!response.ok) {
+        setError(result.detail || 'Something went wrong. Please try again.')
+      } else {
+        setAnalysis(result.analysis)
+      }
     } catch (error) {
       console.error('Error:', error)
+      setError('Could not reach the server. Please try again.')
     }
     setLoading(false)
   }
@@ -55,6 +63,7 @@ function App() {
       <button onClick={handleAnalyze} disabled={loading || !file || !jobDescription}>
         {loading ? 'Analyzing...' : 'Analyze Resume'}
       </button>
+      {error && <div className="error-message">{error}</div>}
       {analysis && <Results analysis={analysis} />}
     </div>
   )

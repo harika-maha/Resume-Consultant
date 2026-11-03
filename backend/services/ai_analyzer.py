@@ -2,22 +2,27 @@
 import os
 import requests
 import json
-from openai import OpenAI
+from openai import OpenAI, RateLimitError, APIError
+from fastapi import HTTPException
 import re
+
+MAX_RESUME_CHARS = int(os.getenv("MAX_RESUME_CHARS", 6000))
+MAX_JD_CHARS = int(os.getenv("MAX_JD_CHARS", 6000))
 
 class AIAnalyzer:
 
     def __init__(self):
         self.client = OpenAI(
             base_url="https://api.groq.com/openai/v1/",
-            api_key=os.getenv("GROQ_API_KEY")
+            api_key=os.getenv("GROQ_API_KEY"),
+            max_retries=3
         )
 
     async def analyze_resume_with_ai(self, resume_text: str, jd: str):
         prompt = f"""Analyze this resume against the job description and respond with a JSON object.
 
-RESUME: {resume_text[:800]}
-JOB: {jd[:800]}
+RESUME: {resume_text[:MAX_RESUME_CHARS]}
+JOB: {jd[:MAX_JD_CHARS]}
 
 Respond with a JSON object in this exact format:
 {{
@@ -46,16 +51,16 @@ Respond with a JSON object in this exact format:
             print("=== PARSED RESULT ===")
             print(parsed)
             return parsed
-        
-        except Exception as e:
+
+        except RateLimitError as e:
+            print(f"Rate limited after retries: {e}")
+            raise HTTPException(status_code=503, detail="The AI service is busy right now. Please try again in a minute.")
+        except APIError as e:
             print(f"API Error {e}")
-        return {
-            "matchPercentage": 40,
-            "missingSkills": ["API failed - manual review needed"],
-            "strengths": ["Technical background"],
-            "improvements": ["Review job requirements manually"],
-            "summary": "Analysis unavailable - please try again"
-        }
+            raise HTTPException(status_code=502, detail="The AI service returned an error. Please try again.")
+        except json.JSONDecodeError as e:
+            print(f"Invalid JSON from model: {e}")
+            raise HTTPException(status_code=502, detail="The AI returned an unreadable response. Please try again.")
     
     def parse_response(self, text : str):
         parsed_response = {
